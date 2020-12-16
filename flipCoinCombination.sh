@@ -23,6 +23,15 @@ echo ${dict1[@]}
 echo ${!dict1[@]}
 echo "Percentage for HEAD is $percent_head"
 echo "Percentage for TAIL is $percent_tail"
+if [ $percent_head -gt $percent_tail ]
+then
+	echo HEAD wins
+elif [ $percent_tail -gt $percent_head ]
+then
+	echo TAIL wins
+else
+	echo It is a TIE
+fi
 hh=0
 ht=0
 tt=0
@@ -59,6 +68,42 @@ echo "Percentage for hh is $percent_hh"
 echo "Percentage for ht is $percent_ht"
 echo "Percentage for tt is $percent_tt"
 echo "Percentage for th is $percent_th"
+if [ $percent_hh -gt $percent_ht ]
+then
+	if [ $percent_hh -gt $percent_tt ]
+	then
+		if [ $percent_hh -gt $percent_th ]
+		then
+			echo hh Combination wins
+		else
+			echo th Combination wins
+		fi
+	else
+		if [ $percent_tt -gt $percent_th ]
+		then
+			echo tt Combination wins
+		else
+			echo th Combination wins
+		fi
+	fi
+else
+	if [ $percent_ht -gt $percent_tt ]
+	then
+		if [ $percent_ht -gt $percent_th ]
+		then
+			echo ht Combination wins
+		else
+			echo th Combination wins
+		fi
+	else
+		if [ $percent_tt -gt $percent_th ]
+		then
+			echo tt Combination wins
+		else
+			echo th Combination wins
+		fi
+	fi
+fi
 hhh=0
 hht=0
 htt=0
@@ -124,5 +169,59 @@ echo "Percentage for tth is $percent_tth"
 echo "Percentage for thh is $percent_thh"
 echo "Percentage for tht is $percent_tht"
 echo "Percentage for hth is $percent_hth"
-
+array[0]=${dict3[hhh]}
+array[1]=${dict3[hht]}
+array[2]=${dict3[htt]}
+array[3]=${dict3[ttt]}
+array[4]=${dict3[tth]}
+array[5]=${dict3[thh]}
+array[6]=${dict3[tht]}
+array[7]=${dict3[hth]}
+for((i=0;i<8;i++))
+do
+        for((j=$i+1;j<8;j++))
+        do
+                b=${array[i]}
+                c=${array[j]}
+                if [ $b -ge $c ]
+                then
+                        array[i]=$c
+                        array[j]=$b
+                fi
+        done
+done
+a=${dict3[hhh]}
+b=${dict3[hht]}
+c=${dict3[htt]}
+d=${dict3[ttt]}
+e=${dict3[tth]}
+f=${dict3[thh]}
+g=${dict3[tht]}
+h=${dict3[hth]}
+big=${array[7]}
+if [ $big -eq $a ]
+then
+	echo hhh Combination wins
+elif [ $big -eq $b ]
+then
+	echo hht Combination wins
+elif [ $big -eq $c ]
+then
+        echo htt Combination wins
+elif [ $big -eq $d ]
+then
+        echo ttt Combination wins
+elif [ $big -eq $e ]
+then
+        echo tth Combination wins
+elif [ $big -eq $f ]
+then
+        echo thh Combination wins
+elif [ $big -eq $g ]
+then
+        echo tht Combination wins
+elif [ $big -eq $h ]
+then
+        echo hth Combination wins
+fi
 
